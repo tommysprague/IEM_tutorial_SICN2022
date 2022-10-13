@@ -76,7 +76,7 @@
 % below), at both the individual subj and group level.
 
 % do you want to use EEG ('EEG') or fMRI ('fMRI') data?
-which_data = 'EEG';  % for SICN: focus on fMRI (but will work for EEG too)
+which_data = 'fMRI';  % for SICN: focus on fMRI (but will work for EEG too)
 
 % IMPORTANT: set this if you are using an older version of matlab that does not
 % have new features (if you get errors, try this first)
@@ -814,6 +814,13 @@ end
 this_fidelity = dot([mux muy],  [cosd(pbins(which_bin)) sind(pbins(which_bin))]);
 text(-pi/2,2,sprintf('Fidelity = %.03f',this_fidelity),'HorizontalAlignment','center');
 
+% draw fidelity:
+if ~old_matlab_ver
+  polarplot([1 1]*deg2rad(pbins(which_bin)),this_fidelity*[0 1],'-','LineWidth',4,'Color','k');
+else
+  hPolar = polar([1 1]*deg2rad(pbins(which_bin)),this_fidelity*[0 1],'-');
+  set(hPolar,'LineWidth',4,'Color','k');
+end
 
 
 
